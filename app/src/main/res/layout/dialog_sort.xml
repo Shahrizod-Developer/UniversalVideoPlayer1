@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="18dp"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+
+        android:layout_width="match_parent"
+        android:background="#211442"
+        android:layout_height="match_parent">
+
+        <TextView
+
+            android:id="@+id/sort_text"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintVertical_bias="0.05"
+            android:textSize="22sp"
+            android:textStyle="italic"
+            android:fontFamily="serif-monospace"
+            android:text="Sort type"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+
+            android:id="@+id/linear"
+            app:layout_constraintTop_toBottomOf="@id/sort_text"
+            android:layout_marginTop="10dp"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"/>
+
+        <TextView
+
+            android:id="@+id/byletter"
+            android:textSize="18sp"
+            android:layout_width="200dp"
+            android:fontFamily="monospace"
+            app:layout_constraintTop_toBottomOf="@id/linear"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintVertical_bias="0"
+            app:layout_constraintHorizontal_bias="0.2"
+            android:textColor="@color/white"
+            android:text="By letters"
+            android:layout_marginTop="40dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_height="wrap_content"/>
+
+        <androidx.appcompat.widget.SwitchCompat
+
+            android:id="@+id/letter"
+            app:layout_constraintTop_toTopOf="@id/byletter"
+            app:layout_constraintBottom_toBottomOf="@id/byletter"
+            app:layout_constraintLeft_toRightOf="@id/byletter"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+
+            android:id="@+id/linear1"
+            app:layout_constraintTop_toBottomOf="@id/byletter"
+            android:layout_marginTop="10dp"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:layout_width="350dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_height="0.5dp"/>
+
+        <TextView
+
+            android:id="@+id/size"
+            android:textSize="18sp"
+            android:layout_width="200dp"
+            android:fontFamily="monospace"
+            app:layout_constraintTop_toBottomOf="@id/byletter"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintVertical_bias="0"
+            app:layout_constraintHorizontal_bias="0.2"
+            android:textColor="@color/white"
+            android:text="Size"
+            android:layout_marginTop="40dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_height="wrap_content"/>
+
+        <androidx.appcompat.widget.SwitchCompat
+
+            android:id="@+id/sizee"
+            app:layout_constraintTop_toTopOf="@id/size"
+            app:layout_constraintBottom_toBottomOf="@id/size"
+            app:layout_constraintLeft_toRightOf="@id/size"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+
+            android:id="@+id/linear2"
+            app:layout_constraintTop_toBottomOf="@id/size"
+            android:layout_marginTop="10dp"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:layout_width="350dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_height="0.5dp"/>
+        <TextView
+
+            android:id="@+id/data_wise"
+            android:textSize="18sp"
+            android:layout_width="200dp"
+            android:fontFamily="monospace"
+            app:layout_constraintTop_toBottomOf="@id/size"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintVertical_bias="0"
+            app:layout_constraintHorizontal_bias="0.2"
+            android:textColor="@color/white"
+            android:text="Data wise"
+            android:layout_marginTop="40dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_height="wrap_content"/>
+
+        <androidx.appcompat.widget.SwitchCompat
+
+            android:id="@+id/wise"
+            app:layout_constraintTop_toTopOf="@id/data_wise"
+            app:layout_constraintBottom_toBottomOf="@id/data_wise"
+            app:layout_constraintLeft_toRightOf="@id/data_wise"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+
+            android:id="@+id/linear3"
+            app:layout_constraintTop_toBottomOf="@id/data_wise"
+            android:layout_marginTop="10dp"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:layout_width="350dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_height="0.5dp"/>
+
+        <TextView
+
+            android:id="@+id/last_modified"
+            android:textSize="18sp"
+            android:layout_width="200dp"
+            android:fontFamily="monospace"
+            app:layout_constraintTop_toBottomOf="@id/data_wise"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintVertical_bias="0"
+            app:layout_constraintHorizontal_bias="0.2"
+            android:textColor="@color/white"
+            android:text="Last Modified"
+            android:layout_marginTop="40dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_height="wrap_content"/>
+
+        <androidx.appcompat.widget.SwitchCompat
+
+            android:id="@+id/last_modif"
+            app:layout_constraintTop_toTopOf="@id/last_modified"
+            app:layout_constraintBottom_toBottomOf="@id/last_modified"
+            app:layout_constraintLeft_toRightOf="@id/last_modified"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+
+            android:id="@+id/linear4"
+            app:layout_constraintTop_toBottomOf="@id/last_modified"
+            android:layout_marginTop="10dp"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:layout_width="350dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_height="0.5dp"/>
+
+        <TextView
+
+            android:id="@+id/cancel"
+            app:layout_constraintTop_toBottomOf="@id/linear4"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintVertical_bias="0"
+            android:textSize="20sp"
+            android:text="Cancel"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:layout_margin="20dp"
+            app:layout_constraintHorizontal_bias="0.2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+
+            android:id="@+id/ok"
+            app:layout_constraintTop_toBottomOf="@id/linear4"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintVertical_bias="0"
+            android:textSize="20sp"
+            android:text="Ok"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:layout_margin="20dp"
+            app:layout_constraintHorizontal_bias="0.8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+</androidx.cardview.widget.CardView>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/phoneMemoryFragment2"
+        android:title="Your videos"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_baseline_video_library_24"
+        />
+    <item
+        android:id="@+id/youTubeFragment2"
+        android:title="Online Videos"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/youtube"
+        />
+    <item
+        android:id="@+id/downloadedVideoFragment2"
+        android:title="Downloaded videos"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_baseline_file_download_done_24"
+        />
+    <item
+        android:id="@+id/downloadingFragment2"
+        android:title="Downloading videos"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_baseline_downloading_24"
+        />
+</menu>

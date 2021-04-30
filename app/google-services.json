@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1025026745476",
+    "firebase_url": "https://videos-4b52d-default-rtdb.firebaseio.com",
+    "project_id": "videos-4b52d",
+    "storage_bucket": "videos-4b52d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1025026745476:android:9b380ba9f03a2efebb8ed1",
+        "android_client_info": {
+          "package_name": "uz.android.universalvideoplayer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1025026745476-e8d2d55idaa39qije00pcc23c3i7ep56.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDNI64uDe-Wm1yPwqFOTwfY90BjqcdsXw0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1025026745476-e8d2d55idaa39qije00pcc23c3i7ep56.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

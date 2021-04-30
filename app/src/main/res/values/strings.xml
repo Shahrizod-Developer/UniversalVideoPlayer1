@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name">Video Player</string>
+    <string name="search_for_videos">Search for Videos</string>
+    <string name="logo">logo</string>
+    <string name="playlist">PlayList</string>
+    <string name="search">Search</string>
+    <string name="no_videos_found">No Videos Found</string>
+    <string name="video">Video</string>
+    <string name="titleOfVideo">How to overcome Procrastination</string>
+    <string name="download">Download Video</string>
+
+
+    <!-- Date Utils -->
+    <string name="date_util_term_less">less than</string>
+    <string name="date_util_term_a">a</string>
+    <string name="date_util_term_an">an</string>
+
+    <string name="date_util_unit_second">second</string>
+    <string name="date_util_unit_seconds">seconds</string>
+    <string name="date_util_unit_minute">minute</string>
+    <string name="date_util_unit_minutes">minutes</string>
+    <string name="date_util_unit_hour">hour</string>
+    <string name="date_util_unit_hours">hours</string>
+    <string name="date_util_unit_day">day</string>
+    <string name="date_util_unit_days">days</string>
+    <string name="date_util_unit_month">month</string>
+    <string name="date_util_unit_months">months</string>
+    <string name="date_util_unit_year">year</string>
+    <string name="date_util_unit_years">years</string>
+
+    <string name="date_util_prefix_lt">less than a</string>
+    <string name="date_util_prefix_about">about</string>
+    <string name="date_util_prefix_over">over</string>
+    <string name="date_util_prefix_almost">almost</string>
+
+    <string name="date_util_suffix">ago</string>
+    <string name="youtube_link">"https://www.youtube.com/watch?v="</string>
+</resources>
