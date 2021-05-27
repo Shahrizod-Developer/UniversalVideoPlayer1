@@ -66,13 +66,12 @@ class DownloadingFragment : Fragment() {
                         if (DownloadManager.STATUS_SUCCESSFUL == c
                                 .getInt(columnIndex)
                         ) {
-                           // val view = binding.imageview
+                            val view = binding.imageview
                             val uriString = c
                                 .getString(c.getColumnIndex(DownloadManager.COLUMN_LOCAL_URI))
                             val a = Uri.parse(uriString)
                             val d = File(a.path)
-                            // copy file from external to internal will esaily avalible on net use google.
-                         //   view.setVideoURI(a)
+                            view.setVideoURI(a)
                         }
                     }
                 }

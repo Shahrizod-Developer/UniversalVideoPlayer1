@@ -79,5 +79,6 @@
             android:layout_height="wrap_content"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             tools:listitem="@layout/list_videos" />
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

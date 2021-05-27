@@ -22,10 +22,9 @@ class VideosRepository {
                     }
                     mutableList.value = videos
                 }
-
                 override fun onCancelled(error: DatabaseError) {
                 }
             })
             return mutableList
         }
-    }
+}

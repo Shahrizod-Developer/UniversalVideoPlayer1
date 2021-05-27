@@ -33,7 +33,6 @@ import java.util.*
 class   DownloadedVideoFragment : Fragment() {
 
     private lateinit var binding: FragmentDownloadedVideoBinding
-    val PERMISSION_READ = 0
 
     @RequiresApi(Build.VERSION_CODES.Q)
     override fun onCreateView(
@@ -63,9 +62,10 @@ class   DownloadedVideoFragment : Fragment() {
     fun getVideos() {
         val contentResolver: ContentResolver? = context?.contentResolver
         val selection = MediaStore.Video.Media.DATA + " like?"
-        val selectionArgs = arrayOf("%Video Player%")
+        val selectionArgs = arrayOf("%/storage/emulated/0/Telegram/Telegram Video%")
         val uri: Uri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI
-        val cursor: Cursor? = contentResolver?.query(uri, null, selection, selectionArgs, null)
+        val cursor: Cursor? = contentResolver?.query(uri, null, selection,
+                selectionArgs, MediaStore.Video.Media.DATE_TAKEN + " DESC")
         val videoArrayList = arrayListOf<VideoModel>()
 
         //looping through all rows and adding to list
@@ -142,7 +142,5 @@ class   DownloadedVideoFragment : Fragment() {
         val decimal = BigDecimal(b).setScale(2, RoundingMode.HALF_EVEN)
         return "$decimal MB"
     }
-
-
 }
 

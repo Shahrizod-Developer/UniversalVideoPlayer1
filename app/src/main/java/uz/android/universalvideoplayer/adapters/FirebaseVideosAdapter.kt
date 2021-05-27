@@ -1,46 +1,65 @@
 package uz.android.universalvideoplayer.adapters
 
+import android.R
 import android.annotation.SuppressLint
-import android.os.Handler
+import android.content.Context
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.RadioGroup
+import android.widget.VideoView
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.squareup.picasso.Picasso
-import uz.android.universalvideoplayer.PlayVideoActivity
-import uz.android.universalvideoplayer.R
 import uz.android.universalvideoplayer.databinding.ItemViewVideosBinding
 import uz.android.universalvideoplayer.models.FirebaseVideo
 
-class FirebaseVideosAdapter() : RecyclerView.Adapter<FirebaseVideosAdapter.ViewHolder>() {
-    var video_index = 0
-    var current_pos = 0.0
-    var total_duration = 0.0
-    var mHandler: Handler? = null
-    var handler: Handler? = null
+
+class FirebaseVideosAdapter(var context: Context) : RecyclerView.Adapter<FirebaseVideosAdapter.ViewHolder>() {
+
+    private lateinit var video: FirebaseVideo
     private val itemCallBack = object : DiffUtil.ItemCallback<FirebaseVideo>() {
         override fun areItemsTheSame(oldItem: FirebaseVideo, newItem: FirebaseVideo): Boolean {
             return oldItem == newItem
         }
         override fun areContentsTheSame(oldItem: FirebaseVideo, newItem: FirebaseVideo): Boolean {
-            return oldItem.name == newItem.name
+            return oldItem.url == newItem.url
         }
     }
     val differ = AsyncListDiffer(this, itemCallBack)
-    inner class ViewHolder(private val binding: ItemViewVideosBinding) : RecyclerView.ViewHolder(binding.root) {
-        @SuppressLint("SetTextI18n")
-        val videoview = binding.video
-        val pause = binding.pause
-        val play = binding.play
+    inner class ViewHolder(private val binding: ItemViewVideosBinding) : RecyclerView.ViewHolder(
+        binding.root
+    ) {
+
+        @SuppressLint("NewApi")
         fun onBind(videos: FirebaseVideo) {
-            binding.name.text = videos.name
-            Picasso.get().load(videos.image).into(binding.image)
+
+            binding.total.text = videos.duration
+            binding.text.text = videos.title
+          //  binding.videoview.setVideoPath(videos.videoUrl)
+            Picasso.get().load(videos.image).into(binding.imageview)
+
+
+            binding.play.setOnClickListener {
+//
+
+//                binding.videoview.setVideoPath(videos.url);
+//                binding.videoview.setOnCompletionListener {
+//                    binding.videoview.start();
+//                }
+
+                val uri = Uri.parse(videos.url)
+                binding.videoview.visibility = View.VISIBLE
+                binding.imageview.visibility = View.GONE
+                val video = binding.videoview
+                video.setVideoURI(uri)
+                video.start()
+            }
         }
+
     }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
             ItemViewVideosBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -51,5 +70,6 @@ class FirebaseVideosAdapter() : RecyclerView.Adapter<FirebaseVideosAdapter.ViewH
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val videoModel = differ.currentList[position]
         holder.onBind(videoModel)
+
     }
 }

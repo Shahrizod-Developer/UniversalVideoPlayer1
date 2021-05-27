@@ -3,21 +3,24 @@ package uz.android.universalvideoplayer.fragments
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.ContentResolver
+import android.content.Context
 import android.content.Intent
 import android.database.Cursor
+import android.media.AudioManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.view.GestureDetector.SimpleOnGestureListener
 import android.widget.TextView
 import androidx.annotation.RequiresApi
+import androidx.appcompat.widget.SwitchCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.cj.videoprogressview.LightProgressView
+import com.cj.videoprogressview.VolumeProgressView
 import uz.android.universalvideoplayer.PlayVideoActivity
 import uz.android.universalvideoplayer.R
 import uz.android.universalvideoplayer.adapters.VideoAdapter
@@ -31,10 +34,11 @@ import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.util.*
 
+
 class   PhoneMemoryFragment : Fragment() {
 
     private lateinit var binding: FragmentPhoneMemoryBinding
-
+    val videoArrayList = arrayListOf<VideoModel>()
     val PERMISSION_READ = 0
 
     @RequiresApi(Build.VERSION_CODES.Q)
@@ -60,6 +64,19 @@ class   PhoneMemoryFragment : Fragment() {
         val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_sort, null)
         val cancel = dialogView.findViewById<TextView>(R.id.cancel)
 
+        val sort = dialogView.findViewById<SwitchCompat>(R.id.last_modif)
+
+        sort.setOnCheckedChangeListener { _, isChecked ->
+
+            if(isChecked)
+            {
+//                videoArrayList.sortWith(Comparator { o1, o2 -> o1.name!!.compareTo(o2.name!!) })
+
+            }
+            else{
+
+            }
+        }
 
         cancel.setOnClickListener {
             dialog.cancel()
@@ -84,13 +101,12 @@ class   PhoneMemoryFragment : Fragment() {
     @SuppressLint("Recycle")
     fun getVideos() {
         val contentResolver: ContentResolver? = context?.contentResolver
-        //val selection = MediaStore.Video.Media.DATA + " like?"
-       // val selectionArgs = arrayOf("%Video Player%")
+        val selection = MediaStore.Video.Media.DATA + " like?"
+        val selectionArgs = arrayOf("%/storage/emulated/0%")
         val uri: Uri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI
-        val cursor: Cursor? = contentResolver?.query(uri, null, null, null, null)
-        val videoArrayList = arrayListOf<VideoModel>()
+        val cursor: Cursor? = contentResolver?.query(uri, null, selection, selectionArgs, MediaStore.Video.Media.DATE_TAKEN + " DESC")
+      //  val videoArrayList = arrayListOf<VideoModel>()
 
-        //looping through all rows and adding to list
         if (cursor != null && cursor.moveToFirst()) {
                 try {
                     do {

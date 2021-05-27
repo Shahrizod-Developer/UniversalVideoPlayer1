@@ -3,6 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="uz.android.universalvideoplayer">
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/splash"
@@ -11,7 +18,10 @@
         android:requestLegacyExternalStorage="true"
         android:roundIcon="@drawable/splash"
         android:supportsRtl="true"
+        android:configChanges="orientation|screenSize|layoutDirection"
         android:theme="@style/Theme.UniversalVideoPlayer">
+        <activity android:name=".ThirdActivity"></activity>
+
         <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,13 +30,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".PlayVideoActivity" />
-        <activity android:name=".MainActivity">
-        </activity>
+        <activity android:name=".MainActivity" />
     </application>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
 </manifest>
