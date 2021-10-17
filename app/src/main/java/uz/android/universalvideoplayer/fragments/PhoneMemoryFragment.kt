@@ -3,24 +3,26 @@ package uz.android.universalvideoplayer.fragments
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.ContentResolver
-import android.content.Context
 import android.content.Intent
 import android.database.Cursor
-import android.media.AudioManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
-import android.view.*
-import android.view.GestureDetector.SimpleOnGestureListener
+import android.view.LayoutInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
+import android.widget.SearchView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.SwitchCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.cj.videoprogressview.LightProgressView
-import com.cj.videoprogressview.VolumeProgressView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import uz.android.universalvideoplayer.PlayVideoActivity
 import uz.android.universalvideoplayer.R
 import uz.android.universalvideoplayer.adapters.VideoAdapter
@@ -33,13 +35,15 @@ import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class   PhoneMemoryFragment : Fragment() {
 
     private lateinit var binding: FragmentPhoneMemoryBinding
+    private var swipeRefreshLayout: SwipeRefreshLayout? = null
     val videoArrayList = arrayListOf<VideoModel>()
-    val PERMISSION_READ = 0
+   private lateinit var searchResult: ArrayList<VideoModel>
 
     @RequiresApi(Build.VERSION_CODES.Q)
     override fun onCreateView(
@@ -51,9 +55,22 @@ class   PhoneMemoryFragment : Fragment() {
 
             videoList()
 
+        //initializing the swipeRefreshLayout and textView
+
+        swipeRefreshLayout = binding.swiperefreshlayout
+
+        swipeRefreshLayout!!.setOnRefreshListener(OnRefreshListener { //Changing the text when refresh
+
+            val adapter = VideoAdapter(requireActivity(), PlayVideoActivity.videoArrayList)
+            adapter.notifyDataSetChanged()
+            //setting Refreshing to false
+            swipeRefreshLayout!!.isRefreshing = false
+        })
+
         binding.sort.setOnClickListener {
             showSortDialog()
         }
+
 
         return binding.root
     }
@@ -70,7 +87,6 @@ class   PhoneMemoryFragment : Fragment() {
 
             if(isChecked)
             {
-//                videoArrayList.sortWith(Comparator { o1, o2 -> o1.name!!.compareTo(o2.name!!) })
 
             }
             else{
@@ -105,7 +121,6 @@ class   PhoneMemoryFragment : Fragment() {
         val selectionArgs = arrayOf("%/storage/emulated/0%")
         val uri: Uri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI
         val cursor: Cursor? = contentResolver?.query(uri, null, selection, selectionArgs, MediaStore.Video.Media.DATE_TAKEN + " DESC")
-      //  val videoArrayList = arrayListOf<VideoModel>()
 
         if (cursor != null && cursor.moveToFirst()) {
                 try {

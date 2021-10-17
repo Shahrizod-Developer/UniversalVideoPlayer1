@@ -11,11 +11,6 @@
         android:label="fragment_phone_memory"
         tools:layout="@layout/fragment_phone_memory" />
     <fragment
-        android:id="@+id/youTubeFragment2"
-        android:name="uz.android.universalvideoplayer.fragments.YouTubeFragment"
-        android:label="fragment_you_tube"
-        tools:layout="@layout/fragment_you_tube" />
-    <fragment
         android:id="@+id/downloadedVideoFragment2"
         android:name="uz.android.universalvideoplayer.fragments.DownloadedVideoFragment"
         android:label="fragment_downloaded_video"

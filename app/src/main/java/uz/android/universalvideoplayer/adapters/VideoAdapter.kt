@@ -59,7 +59,6 @@ class VideoAdapter(var context: Context, var videoArrayList: ArrayList<VideoMode
                 val uri = videoArrayList[i].videoUri
                 val file = File(uri.path)
 
-
                 val dialogdelete = AlertDialog.Builder(context).create()
                 val dialogViewdelete = LayoutInflater.from(context).inflate(R.layout.dialod_delete, null)
                 val yes = dialogViewdelete.findViewById<TextView>(R.id.yes)
@@ -75,12 +74,9 @@ class VideoAdapter(var context: Context, var videoArrayList: ArrayList<VideoMode
                     dialogdelete.cancel()
                     dialog1.cancel()
                 }
-
                 dialogdelete.setView(dialogViewdelete)
                 dialogdelete.window?.setBackgroundDrawableResource(android.R.color.transparent)
                 dialogdelete.show()
-
-
             }
             details.setOnClickListener {
                 val dialog = BottomSheetDialog(this.context)
