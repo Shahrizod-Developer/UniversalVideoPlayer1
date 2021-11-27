@@ -94,6 +94,8 @@
         android:id="@+id/ok"
         android:layout_marginTop="20dp"
         app:cardCornerRadius="15dp"
+        android:transitionName="consItem"
+        android:background="@drawable/ripple"
         android:layout_width="200dp"
         android:backgroundTint="#0A2533"
         android:layout_height="45dp">

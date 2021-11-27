@@ -4,6 +4,56 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/AndroidStudioProjects/UniversalVideoPlayer1/app/src/main/res/layout/activity_play_video.xml" value="0.20416666666666666" />
+        <entry key="..\:/Projects/UniversalVideoPlayer12/app/src/main/res/drawable-v21/ripple.xml" value="0.2203125" />
+        <entry key="..\:/Projects/UniversalVideoPlayer12/app/src/main/res/drawable-v24/ic_baseline_downloading_24.xml" value="0.2203125" />
+        <entry key="..\:/Projects/UniversalVideoPlayer12/app/src/main/res/drawable-v24/ic_baseline_file_download_done_24.xml" value="0.2203125" />
+        <entry key="..\:/Projects/UniversalVideoPlayer12/app/src/main/res/drawable-v24/ic_baseline_pause_circle_24.xml" value="0.2203125" />
+        <entry key="..\:/Projects/UniversalVideoPlayer12/app/src/main/res/drawable-v24/ic_baseline_play_circle_24.xml" value="0.2203125" />
+        <entry key="..\:/Projects/UniversalVideoPlayer12/app/src/main/res/drawable-v24/ic_baseline_settings_24.xml" value="0.2203125" />
+        <entry key="..\:/Projects/UniversalVideoPlayer12/app/src/main/res/drawable-v24/ic_baseline_skip_next_24.xml" value="0.2203125" />
+        <entry key="..\:/Projects/UniversalVideoPlayer12/app/src/main/res/drawable-v24/ic_baseline_skip_previous_24.xml" value="0.2203125" />
+        <entry key="..\:/Projects/UniversalVideoPlayer12/app/src/main/res/drawable-v24/ic_baseline_sort_24.xml" value="0.2203125" />
+        <entry key="..\:/Projects/UniversalVideoPlayer12/app/src/main/res/drawable-v24/ic_baseline_video_library_24.xml" value="0.2203125" />
+        <entry key="..\:/Projects/UniversalVideoPlayer12/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2203125" />
+        <entry key="..\:/Projects/UniversalVideoPlayer12/app/src/main/res/drawable-v24/youtube.xml" value="0.2169230769230769" />
+        <entry key="..\:/Projects/UniversalVideoPlayer12/app/src/main/res/drawable/back.xml" value="0.2203125" />
+        <entry key="..\:/Projects/UniversalVideoPlayer12/app/src/main/res/drawable/back_style.xml" value="0.2203125" />
+        <entry key="..\:/Projects/UniversalVideoPlayer12/app/src/main/res/drawable/back_style1.xml" value="0.2203125" />
+        <entry key="..\:/Projects/UniversalVideoPlayer12/app/src/main/res/drawable/back_style2.xml" value="0.2203125" />
+        <entry key="..\:/Projects/UniversalVideoPlayer12/app/src/main/res/drawable/back_style_video.xml" value="0.2203125" />
+        <entry key="..\:/Projects/UniversalVideoPlayer12/app/src/main/res/drawable/bg_center_window.xml" value="0.2203125" />
+        <entry key="..\:/Projects/UniversalVideoPlayer12/app/src/main/res/drawable/blur.xml" value="0.2169230769230769" />
+        <entry key="..\:/Projects/UniversalVideoPlayer12/app/src/main/res/drawable/circular.xml" value="0.2203125" />
+        <entry key="..\:/Projects/UniversalVideoPlayer12/app/src/main/res/drawable/ic_baseline_arrow_back.xml" value="0.2203125" />
+        <entry key="..\:/Projects/UniversalVideoPlayer12/app/src/main/res/drawable/ic_baseline_arrow_back_24.xml" value="0.2203125" />
+        <entry key="..\:/Projects/UniversalVideoPlayer12/app/src/main/res/drawable/ic_baseline_delete_24.xml" value="0.2203125" />
+        <entry key="..\:/Projects/UniversalVideoPlayer12/app/src/main/res/drawable/ic_baseline_fullscreen_24.xml" value="0.2203125" />
+        <entry key="..\:/Projects/UniversalVideoPlayer12/app/src/main/res/drawable/ic_baseline_more_vert_24.xml" value="0.2203125" />
+        <entry key="..\:/Projects/UniversalVideoPlayer12/app/src/main/res/drawable/ic_baseline_pause_circle_filled_24.xml" value="0.2203125" />
+        <entry key="..\:/Projects/UniversalVideoPlayer12/app/src/main/res/drawable/ic_baseline_skip_next_25.xml" value="0.2203125" />
+        <entry key="..\:/Projects/UniversalVideoPlayer12/app/src/main/res/drawable/ic_file_download_black_24dp.xml" value="0.2203125" />
+        <entry key="..\:/Projects/UniversalVideoPlayer12/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2203125" />
+        <entry key="..\:/Projects/UniversalVideoPlayer12/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.2203125" />
+        <entry key="..\:/Projects/UniversalVideoPlayer12/app/src/main/res/drawable/ic_search_black_24dp.xml" value="0.2203125" />
+        <entry key="..\:/Projects/UniversalVideoPlayer12/app/src/main/res/drawable/ripple.xml" value="0.2203125" />
+        <entry key="..\:/Projects/UniversalVideoPlayer12/app/src/main/res/drawable/style_circular.xml" value="0.2169230769230769" />
+        <entry key="..\:/Projects/UniversalVideoPlayer12/app/src/main/res/drawable/thumb.xml" value="0.2169230769230769" />
+        <entry key="..\:/Projects/UniversalVideoPlayer12/app/src/main/res/layout/activity_main.xml" value="0.20416666666666666" />
+        <entry key="..\:/Projects/UniversalVideoPlayer12/app/src/main/res/layout/activity_play_video.xml" value="0.20416666666666666" />
+        <entry key="..\:/Projects/UniversalVideoPlayer12/app/src/main/res/layout/activity_splash_screen.xml" value="0.20416666666666666" />
+        <entry key="..\:/Projects/UniversalVideoPlayer12/app/src/main/res/layout/details_diaolog.xml" value="0.20416666666666666" />
+        <entry key="..\:/Projects/UniversalVideoPlayer12/app/src/main/res/layout/dialod_delete.xml" value="0.20416666666666666" />
+        <entry key="..\:/Projects/UniversalVideoPlayer12/app/src/main/res/layout/dialog_sort.xml" value="0.20416666666666666" />
+        <entry key="..\:/Projects/UniversalVideoPlayer12/app/src/main/res/layout/fragment_downloaded_video.xml" value="0.20416666666666666" />
+        <entry key="..\:/Projects/UniversalVideoPlayer12/app/src/main/res/layout/fragment_downloading.xml" value="0.20416666666666666" />
+        <entry key="..\:/Projects/UniversalVideoPlayer12/app/src/main/res/layout/fragment_phone_memory.xml" value="0.20416666666666666" />
+        <entry key="..\:/Projects/UniversalVideoPlayer12/app/src/main/res/layout/fragment_search.xml" value="0.20416666666666666" />
+        <entry key="..\:/Projects/UniversalVideoPlayer12/app/src/main/res/layout/item_video_select.xml" value="0.20416666666666666" />
+        <entry key="..\:/Projects/UniversalVideoPlayer12/app/src/main/res/layout/list_videos.xml" value="0.1824074074074074" />
+        <entry key="..\:/Projects/UniversalVideoPlayer12/app/src/main/res/layout/menu_diaolog.xml" value="0.20416666666666666" />
+        <entry key="..\:/Projects/UniversalVideoPlayer12/app/src/main/res/menu/bottom_nav_menu.xml" value="0.20416666666666666" />
+        <entry key="..\:/Projects/UniversalVideoPlayer12/app/src/main/res/menu/search_menu.xml" value="0.20416666666666666" />
+        <entry key="..\:/Projects/UniversalVideoPlayer12/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1125" />
       </map>
     </option>
   </component>

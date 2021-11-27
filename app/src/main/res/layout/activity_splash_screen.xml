@@ -8,14 +8,11 @@
     android:background="#fff"
     tools:context=".SplashScreen">
 
-    <!--THIS IS IMAGEVIEW FOR OUR IMAGE IN SPLASH SCREEN-->
-    <!--YOU CAN ADD YOUR IMAGE TO DRAWABLES.
-        HERE geeksforgeeks IS THE NAME OF IMAGE-->
     <ImageView
         android:id="@+id/SplashScreenImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/rasmm"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:src="@drawable/image"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

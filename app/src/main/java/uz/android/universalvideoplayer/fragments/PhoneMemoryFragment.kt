@@ -1,33 +1,28 @@
 package uz.android.universalvideoplayer.fragments
 
 import android.annotation.SuppressLint
-import android.app.AlertDialog
 import android.content.ContentResolver
 import android.content.Intent
 import android.database.Cursor
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Environment
 import android.provider.MediaStore
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.SearchView
-import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
-import androidx.appcompat.widget.SwitchCompat
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.DefaultItemAnimator
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
+import androidx.recyclerview.widget.GridLayoutManager
+import uz.android.universalvideoplayer.MainActivity
 import uz.android.universalvideoplayer.PlayVideoActivity
-import uz.android.universalvideoplayer.R
+import uz.android.universalvideoplayer.adapters.ItemSelectAdapter
 import uz.android.universalvideoplayer.adapters.VideoAdapter
 import uz.android.universalvideoplayer.databinding.FragmentPhoneMemoryBinding
 import uz.android.universalvideoplayer.models.VideoModel
+import java.io.File
 import java.math.BigDecimal
 import java.math.RoundingMode
 import java.text.SimpleDateFormat
@@ -35,16 +30,15 @@ import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.util.*
-import kotlin.collections.ArrayList
 
 
 class   PhoneMemoryFragment : Fragment() {
 
     private lateinit var binding: FragmentPhoneMemoryBinding
-    private var swipeRefreshLayout: SwipeRefreshLayout? = null
     val videoArrayList = arrayListOf<VideoModel>()
-   private lateinit var searchResult: ArrayList<VideoModel>
+    var count = 0
 
+    @SuppressLint("NewApi")
     @RequiresApi(Build.VERSION_CODES.Q)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,61 +49,33 @@ class   PhoneMemoryFragment : Fragment() {
 
             videoList()
 
-        //initializing the swipeRefreshLayout and textView
+        binding.menu.setOnClickListener {
+            val adapter = ItemSelectAdapter(requireActivity(), PlayVideoActivity.videoArrayList)
+//            for (i in 0 until videoArrayList.size)
+//            {
+//                if(i == adapter.list[count])
+//                {
+//                    val uri = PlayVideoActivity.videoArrayList[i].videoUri
+//                    val file = File(uri.path)
+//                    adapter.scanDeletedMedia(requireContext(), file)
+//                    adapter.removeAt(i)
+//                    count++
+//                }
+//            }
 
-        swipeRefreshLayout = binding.swiperefreshlayout
-
-        swipeRefreshLayout!!.setOnRefreshListener(OnRefreshListener { //Changing the text when refresh
-
-            val adapter = VideoAdapter(requireActivity(), PlayVideoActivity.videoArrayList)
-            adapter.notifyDataSetChanged()
-            //setting Refreshing to false
-            swipeRefreshLayout!!.isRefreshing = false
-        })
-
-        binding.sort.setOnClickListener {
-            showSortDialog()
+            Toast.makeText(requireContext(), adapter.list.size.toString(), Toast.LENGTH_SHORT).show()
         }
-
 
         return binding.root
     }
 
-    private fun showSortDialog() {
-
-        val dialog = AlertDialog.Builder(context).create()
-        val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_sort, null)
-        val cancel = dialogView.findViewById<TextView>(R.id.cancel)
-
-        val sort = dialogView.findViewById<SwitchCompat>(R.id.last_modif)
-
-        sort.setOnCheckedChangeListener { _, isChecked ->
-
-            if(isChecked)
-            {
-
-            }
-            else{
-
-            }
-        }
-
-        cancel.setOnClickListener {
-            dialog.cancel()
-        }
-        dialog.setView(dialogView)
-        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
-        dialog.show()
-    }
-
     @RequiresApi(Build.VERSION_CODES.Q)
     fun videoList() {
-        binding.rv.layoutManager = LinearLayoutManager(
-            requireContext(),
-            LinearLayoutManager.VERTICAL,
+        binding.rv.layoutManager = GridLayoutManager(
+            requireContext(), 3,
+            GridLayoutManager.VERTICAL,
             false
         )
-        binding.rv.itemAnimator = DefaultItemAnimator()
         getVideos()
     }
     //get video files from storage
@@ -117,10 +83,10 @@ class   PhoneMemoryFragment : Fragment() {
     @SuppressLint("Recycle")
     fun getVideos() {
         val contentResolver: ContentResolver? = context?.contentResolver
-        val selection = MediaStore.Video.Media.DATA + " like?"
-        val selectionArgs = arrayOf("%/storage/emulated/0%")
+       // val selection = MediaStore.Video.Media.DATA + " like?"
+//        val selectionArgs = arrayOf("%/storage/emulated/0%")
         val uri: Uri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI
-        val cursor: Cursor? = contentResolver?.query(uri, null, selection, selectionArgs, MediaStore.Video.Media.DATE_TAKEN + " DESC")
+        val cursor: Cursor? = contentResolver?.query(uri, null, null, null, MediaStore.Video.Media.DATE_TAKEN + " DESC")
 
         if (cursor != null && cursor.moveToFirst()) {
                 try {
@@ -147,18 +113,7 @@ class   PhoneMemoryFragment : Fragment() {
                 }
                 PlayVideoActivity.videoArrayList = videoArrayList
             }
-            val adapter = VideoAdapter(requireActivity(), PlayVideoActivity.videoArrayList)
-            binding.rv.adapter = adapter
-            adapter.onItemClickListener = object : VideoAdapter.OnItemClickListener {
-                override fun onItemClick(pos: Int) {
-                    val intent = Intent(
-                        requireContext(),
-                        PlayVideoActivity::class.java
-                    )
-                    intent.putExtra("pos", pos)
-                    startActivity(intent)
-                }
-            }
+          setAdapter()
         }
     //time conversion
     fun timeConversion(value: Long): String{
@@ -177,6 +132,7 @@ class   PhoneMemoryFragment : Fragment() {
     }
 //Just multiply it by 1000 to get correct date
 
+    @SuppressLint("SimpleDateFormat")
     fun convertLongToDate(time: Long): String =
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
                 DateTimeFormatter.ofPattern("dd MMMM yyyy").format(
@@ -195,5 +151,58 @@ class   PhoneMemoryFragment : Fragment() {
         val decimal = BigDecimal(b).setScale(2, RoundingMode.HALF_EVEN)
         return "$decimal MB"
     }
+    fun itemselectadapter(){
+
+            (requireContext() as MainActivity).backPress = {
+                setAdapter()
+            }
+
+        setSelectItemAdapter()
+    }
+
+    fun setSelectItemAdapter()
+    {
+        binding.menu.visibility = View.VISIBLE
+
+        binding.rv.adapter = ItemSelectAdapter(requireContext(), videoArrayList)
+        val adapter = ItemSelectAdapter(requireActivity(), PlayVideoActivity.videoArrayList)
+        binding.rv.adapter = adapter
+        adapter.onItemClickListener = object : ItemSelectAdapter.OnItemClickListener {
+            override fun onItemClick(pos: Int) {
+
+                val intent = Intent(
+                    requireContext(),
+                    PlayVideoActivity::class.java
+                )
+                intent.putExtra("pos", pos)
+                startActivity(intent)
+            }
+        }
+    }
+
+    fun setAdapter()
+    {
+
+        binding.menu.visibility = View.GONE
+        val adapter = VideoAdapter(requireActivity(), PlayVideoActivity.videoArrayList)
+        binding.rv.adapter = adapter
+        adapter.onItemClickListener = object : VideoAdapter.OnItemClickListener {
+            override fun onItemClick(pos: Int) {
+
+                val intent = Intent(
+                    requireContext(),
+                    PlayVideoActivity::class.java
+                )
+                intent.putExtra("pos", pos)
+                startActivity(intent)
+            }
+        }
+        adapter.onItemLongClickListener = object :VideoAdapter.OnItemLongClickListener{
+            override fun onItemLongClick(pos: Int) {
+                itemselectadapter()
+            }
+        }
+    }
+
 }
 

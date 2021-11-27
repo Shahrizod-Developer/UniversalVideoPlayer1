@@ -4,7 +4,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="#291D45"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
@@ -15,10 +14,10 @@
         android:layout_width="match_parent"
         app:menu="@menu/bottom_nav_menu"
         android:background="@drawable/back_style1"
-        android:elevation="10dp"
+        android:backgroundTint="@android:color/transparent"
         app:itemIconTint="@color/white"
         app:itemTextColor="@color/white"
-        android:layout_height="75dp"/>
+        android:layout_height="65dp"/>
 
     <fragment
         android:id="@+id/fragment3"

@@ -2,29 +2,38 @@ package uz.android.universalvideoplayer
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.ActionBar
+import android.app.AlertDialog
+import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.media.AudioManager
 import android.os.Bundle
 import android.os.Handler
+import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
-import android.view.animation.Animation
-import android.widget.RelativeLayout
-import android.widget.SeekBar
+import android.widget.*
 import android.widget.SeekBar.OnSeekBarChangeListener
-import android.widget.Toast
-import android.widget.VideoView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.cardview.widget.CardView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.viewpager.widget.ViewPager
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import uz.android.universalvideoplayer.adapters.VideoAdapter
 import uz.android.universalvideoplayer.databinding.ActivityPlayVideoBinding
+import uz.android.universalvideoplayer.models.PlayVideo
 import uz.android.universalvideoplayer.models.VideoModel
+import java.io.File
+import kotlin.math.abs
+
+
+
 
 
 //https://gist.github.com/anry200/8455113
 
-class PlayVideoActivity : AppCompatActivity(){
+class PlayVideoActivity : AppCompatActivity(), PlayVideo {
 
     var video_index = 0
     var current_pos = 0.0
@@ -33,9 +42,6 @@ class PlayVideoActivity : AppCompatActivity(){
     var handler: Handler? = null
     var videoView: VideoView? = null
     var audioManager: AudioManager? = null
-    private var defaultVideoViewParams: RelativeLayout.LayoutParams? = null
-    private var defaultScreenOrientationMode = 0
-
 
     // private lateinit var audioManager: AudioManager
     private lateinit var binding: ActivityPlayVideoBinding
@@ -44,51 +50,32 @@ class PlayVideoActivity : AppCompatActivity(){
         var videoArrayList = arrayListOf<VideoModel>()
         const val PERMISSION_READ = 0
     }
-
-
-
     var inVisible = true
+
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = ActivityPlayVideoBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         if (checkPermission()) {
             setVideo()
             audioManager = getSystemService(AUDIO_SERVICE) as AudioManager
             videoView = binding.videoview
+
             binding.back.setOnClickListener {
                 finish()
             }
+
         }
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O_MR1) {
             setShowWhenLocked(true)
         }
-//        binding.videoview.setOnTouchListener { v, event ->
-//            var moving = false
-//
-//            when (event!!.action) {
-//                MotionEvent.ACTION_DOWN -> {
-//                    moving = true
-//                }
-//
-//                MotionEvent.ACTION_MOVE -> {
-////                    if (moving) {
-//                    binding.name.text = event.pointerCount.toString()
-////                    }
-//                }
-//
-//                MotionEvent.ACTION_UP -> {
-//                    moving = false
-//                }
-//            }
-//
-//            true
-//        }
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    fun setVideo() {
+    override fun setVideo() {
 
         video_index = intent.getIntExtra("pos", 0)
         mHandler = Handler()
@@ -108,11 +95,17 @@ class PlayVideoActivity : AppCompatActivity(){
         nextVideo()
         setPause()
         hideLayout()
+
+
     }
 
     // play video file
-    fun playVideo(pos: Int) {
-
+    @SuppressLint("ClickableViewAccessibility", "SetTextI18n")
+    override fun playVideo(pos: Int) {
+        var oldX = 0F
+        var oldY = 0F
+        val audioManager =
+            applicationContext.getSystemService(Context.AUDIO_SERVICE) as AudioManager
         try {
             binding.videoview.setVideoURI(videoArrayList[pos].videoUri)
             binding.videoview.start()
@@ -122,10 +115,103 @@ class PlayVideoActivity : AppCompatActivity(){
         } catch (e: Exception) {
             e.printStackTrace()
         }
+
+        val adapter = VideoAdapter(this, videoArrayList)
+        binding.menu.setOnClickListener {
+
+            val dialog1 = BottomSheetDialog(this)
+            val dialogView1 = LayoutInflater.from(this).inflate(R.layout.menu_diaolog, null)
+            val share = dialogView1.findViewById<LinearLayout>(R.id.share)
+            val delete = dialogView1.findViewById<LinearLayout>(R.id.delete)
+            val details = dialogView1.findViewById<LinearLayout>(R.id.details)
+
+            share.setOnClickListener {
+
+                val uri = videoArrayList[pos].videoUri
+                val file = File(uri.path)
+                adapter.shareVideo(videoArrayList[pos].videoTitle, file.toString(), pos)
+                dialog1.cancel()
+            }
+            delete.setOnClickListener {
+                val uri = videoArrayList[pos].videoUri
+                val file = File(uri.path)
+
+                val dialogdelete = AlertDialog.Builder(this).create()
+                val dialogViewdelete = LayoutInflater.from(this).inflate(R.layout.dialod_delete, null)
+                val yes = dialogViewdelete.findViewById<TextView>(R.id.yes)
+                val no = dialogViewdelete.findViewById<TextView>(R.id.no)
+
+                yes.setOnClickListener {
+                    adapter.scanDeletedMedia(this, file)
+                    adapter.removeAt(pos)
+                    Toast.makeText(this, "Deleted" + videoArrayList[pos].videoTitle, Toast.LENGTH_SHORT).show()
+                    val intent = Intent(
+                        this,
+                        MainActivity::class.java)
+                    startActivity(intent)
+                    dialogdelete.cancel()
+                    dialog1.cancel()
+                }
+                no.setOnClickListener {
+                    dialogdelete.cancel()
+                    dialog1.cancel()
+                }
+                dialogdelete.setView(dialogViewdelete)
+                dialogdelete.window?.setBackgroundDrawableResource(android.R.color.transparent)
+                dialogdelete.show()
+            }
+            details.setOnClickListener {
+                val dialog = BottomSheetDialog(this)
+                val dialogView = LayoutInflater.from(this).inflate(
+                    R.layout.details_diaolog,
+                    null
+                )
+                val pixel = dialogView.findViewById<TextView>(R.id.pixel)
+                val time = dialogView.findViewById<TextView>(R.id.add_time)
+                val adress = dialogView.findViewById<TextView>(R.id.adress)
+                val name = dialogView.findViewById<TextView>(R.id.name)
+                val size = dialogView.findViewById<TextView>(R.id.size)
+                val duration = dialogView.findViewById<TextView>(R.id.duration)
+                val ok = dialogView.findViewById<CardView>(R.id.ok)
+                name.text = "Name:  " + videoArrayList[pos].videoTitle
+                time.text = "Edit time:  " + videoArrayList[pos].videoAddedTime
+                adress.text = "Video adress:  " + videoArrayList[pos].adress
+                size.text = "Size:  " + videoArrayList[pos].videoSize
+                duration.text = "Duration:  " + videoArrayList[pos].videoDuration
+                pixel.text = "Pixel capacity:  " + videoArrayList[pos].videoPxile
+
+                ok.setOnClickListener {
+                    dialog.cancel()
+                }
+                dialog.setContentView(dialogView)
+                dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+                dialog.show()
+                dialog1.cancel()
+            }
+            dialog1.setContentView(dialogView1)
+            dialog1.window?.setBackgroundDrawableResource(android.R.color.transparent)
+            dialog1.show()
+        }
+
+        binding.videoview.setOnTouchListener { v, event ->
+            if (event.action == MotionEvent.ACTION_DOWN) {
+                oldY = event.y
+                oldX = event.x
+            }
+                if ((event.y < oldY && oldX > 360) && ((oldY - event.y).toInt() % 10 == 0)) {
+                    audioManager.adjustVolume(AudioManager.ADJUST_RAISE, AudioManager.FLAG_PLAY_SOUND);
+                }
+                if ((event.y > oldY && oldX > 360) && ((oldY - event.y).toInt() % 10 == 0)) {
+                    audioManager.adjustVolume(AudioManager.ADJUST_LOWER, AudioManager.FLAG_PLAY_SOUND);
+            }
+//            binding.name.text = binding.videoview.width.toString() + " / " + oldX + " / " + oldY
+
+            true
+        }
     }
 
     // display video progress
-    fun setVideoProgress() {
+    override fun setVideoProgress() {
         //get the video duration
         current_pos = binding.videoview.currentPosition.toDouble()
         total_duration = binding.videoview.duration.toDouble()
@@ -160,7 +246,7 @@ class PlayVideoActivity : AppCompatActivity(){
     }
 
     //play previous video
-    fun prevVideo() {
+    override fun prevVideo() {
         binding.prev.setOnClickListener {
             if (video_index > 0) {
                 video_index--
@@ -173,7 +259,7 @@ class PlayVideoActivity : AppCompatActivity(){
     }
 
     //play next video
-    fun nextVideo() {
+    override fun nextVideo() {
         binding.next.setOnClickListener {
             if (video_index < videoArrayList.size - 1) {
                 video_index++
@@ -186,7 +272,7 @@ class PlayVideoActivity : AppCompatActivity(){
     }
 
     //pause video
-    fun setPause() {
+    override fun setPause() {
         binding.pause.setOnClickListener {
             if (binding.videoview.isPlaying) {
                 binding.videoview.pause()
@@ -215,12 +301,12 @@ class PlayVideoActivity : AppCompatActivity(){
     }
 
     // hide progress when the video is playing
-    fun hideLayout() {
+    override fun hideLayout() {
         val runnable = Runnable {
             binding.showProgress.visibility = View.GONE
             binding.back.visibility = View.GONE
+            binding.menu.visibility = View.GONE
             binding.name.visibility = View.GONE
-           // binding.seekBar1.visibility = View.GONE
             inVisible = false
         }
         handler!!.postDelayed(runnable, 5000)
@@ -229,14 +315,16 @@ class PlayVideoActivity : AppCompatActivity(){
             if (inVisible) {
                 binding.showProgress.visibility = View.GONE
                 binding.back.visibility = View.GONE
+                binding.menu.visibility = View.GONE
                 binding.name.visibility = View.GONE
-               // binding.seekBar1.visibility = View.GONE
+                // binding.seekBar1.visibility = View.GONE
                 inVisible = false
             } else {
                 binding.showProgress.visibility = View.VISIBLE
                 binding.back.visibility = View.VISIBLE
+                binding.menu.visibility = View.VISIBLE
                 binding.name.visibility = View.VISIBLE
-             //   binding.seekBar1.visibility = View.VISIBLE
+                //   binding.seekBar1.visibility = View.VISIBLE
                 mHandler!!.postDelayed(runnable, 8000)
                 inVisible = true
             }
@@ -247,14 +335,14 @@ class PlayVideoActivity : AppCompatActivity(){
     // runtime storage permission
     fun checkPermission(): Boolean {
         val READ_EXTERNAL_PERMISSION = ContextCompat.checkSelfPermission(
-                this,
-                Manifest.permission.READ_EXTERNAL_STORAGE
+            this,
+            Manifest.permission.READ_EXTERNAL_STORAGE
         )
         if (READ_EXTERNAL_PERMISSION != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(
-                    this,
-                    arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-                    PERMISSION_READ
+                this,
+                arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+                PERMISSION_READ
             )
             return false
         }

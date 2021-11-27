@@ -3,11 +3,12 @@
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="10dp"
+    android:background="?android:attr/actionBarItemBackground"
     android:layout_height="400dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:background="@color/white"
+        android:background="#0D282C"
         android:layout_height="match_parent">
 
         <TextView
@@ -16,7 +17,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            android:textColor="@color/black"
+            android:textColor="@color/teal_200"
             android:textStyle="italic"
             android:textSize="20sp"
             android:layout_margin="10dp"
@@ -32,9 +33,13 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            android:textColor="@color/black"
+            android:textColor="@color/colorPrimary"
             android:textStyle="bold"
             android:textSize="20sp"
+            android:transitionName="consItem"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:focusable="true"
+            android:clickable="true"
             android:text="Yes"
             android:layout_margin="20dp"
             app:layout_constraintHorizontal_bias="0.85"
@@ -50,9 +55,13 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            android:textColor="@color/black"
+            android:textColor="@color/teal_200"
             android:textStyle="bold"
             android:textSize="20sp"
+            android:transitionName="consItem"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:focusable="true"
+            android:clickable="true"
             android:layout_margin="20dp"
             android:text="No"
             app:layout_constraintHorizontal_bias="0.15"

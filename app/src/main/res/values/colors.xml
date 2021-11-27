@@ -11,4 +11,6 @@
     <color name="colorPrimaryDark">#C90000</color>
     <color name="colorAccent">#D81B60</color>
     <color name="color_default">#291D45</color>
+    <color name="colorWindowBackground">#F2F5FC</color>
+    <color name="colorRipple">#0288d1</color>
 </resources>
