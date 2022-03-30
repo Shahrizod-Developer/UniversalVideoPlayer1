@@ -33,6 +33,7 @@ class MainActivity : AppCompatActivity() {
         navController = findNavController(R.id.fragment3)
 
         binding.bottomNav.setupWithNavController(navController)
+
     }
 
     private var doubleBackToExitPressedOnce = false
